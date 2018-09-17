@@ -20,8 +20,8 @@ public class Main {
                 .replace("#","").replace("(","")
                 .replace(")","").replace("?","")
                 .replace("_"," ").replace("?","")
-                .replaceAll("\n", " ").replaceAll("   ", " ")
-                .replaceAll("  ", " ").toLowerCase().trim();
+                .replaceAll("\n", " ").replaceAll("\\s{2,}", " ")
+                .toLowerCase().trim();
 
         System.out.println(theBook);
     }
