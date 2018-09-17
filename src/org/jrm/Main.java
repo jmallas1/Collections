@@ -10,7 +10,23 @@ public class Main {
     private final static FileInput indata = new FileInput("the_book.csv");
     private final static Map<String, Integer> map = new HashMap<String, Integer>();
 
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
+        String theBook = indata.readFile();
+        theBook = theBook.replace(",","").replace(".","")
+                .replace(";","").replace(":","")
+                .replace("'","").replace("\"","")
+                .replace("-","").replace("!","")
+                .replace("#","").replace("(","")
+                .replace(")","").replace("?","")
+                .replace("_"," ").replace("?","")
+                .replaceAll("\n", " ").replaceAll("   ", " ")
+                .replaceAll("  ", " ").toLowerCase().trim();
+
+        System.out.println(theBook);
+    }
+
+    public static void main2(String[] args) {
         String line;
         String[] words;
         Object wordFound;
