@@ -12,6 +12,7 @@ public class Main {
 
     public static void main(String[] args)
     {
+        String[] words;
         String theBook = indata.readFile();
         theBook = theBook.replace(",","").replace(".","")
                 .replace(";","").replace(":","")
@@ -22,6 +23,13 @@ public class Main {
                 .replace("_"," ").replace("?","")
                 .replaceAll("\n", " ").replaceAll("\\s{2,}", " ")
                 .toLowerCase().trim();
+
+        words = theBook.split(" ");
+
+        for (int i=0; i < words.length; i++)
+        {
+            System.out.println(words[i]);
+        }
 
         System.out.println(theBook);
     }
