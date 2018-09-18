@@ -18,7 +18,42 @@ public class Main {
     {
         String[] words;
         String theBook = indata.readFile();
-        theBook = theBook.replace(",","").replace(".","")
+        theBook = cleanBook(theBook);
+
+        words = theBook.split(" ");
+
+        for (int i=0; i < words.length; i++)
+        {
+            if (! words[i].equals(""))
+            {
+                if(map.containsKey(words[i]))
+                {
+                    map.put(words[i], (map.get(words[i]) + 1));
+                }
+                else
+                {
+                    map.put(words[i], 1);
+                }
+            }
+        }
+
+        sortedMap.putAll(map);
+
+        for (Map.Entry<String, Integer> entry : sortedMap.entrySet())
+        {
+            System.out.println("Key: " + entry.getKey());
+            System.out.println("Value: " + entry.getValue().toString());
+        }
+    }
+
+    private Map wordsToMap(String[] words)
+    {
+        return new HashMap();
+    }
+
+    private static String cleanBook(String toClean)
+    {
+        toClean.replace(",","").replace(".","")
                 .replace(";","").replace(":","")
                 .replace("'","").replace("\"","")
                 .replace("-","").replace("!","")
@@ -28,56 +63,6 @@ public class Main {
                 .replaceAll("\n", " ").replaceAll("\\s{2,}", " ")
                 .toLowerCase().trim();
 
-        words = theBook.split(" ");
-
-        for (int i=0; i < words.length; i++)
-        {
-            if(map.containsKey(words[i]))
-            {
-                map.put(words[i], (map.get(words[i]) + 1));
-            }
-            else
-            {
-                map.put(words[i], 1);
-            }
-        }
-
-        sortedMap.putAll(map);
-
-        System.out.println(theBook);
+        return toClean;
     }
-
-    public static void main2(String[] args) {
-        String line;
-        String[] words;
-        Object wordFound;
-        //   String[] fields;
-
-        while ((line = indata.readLine()) != null) {
-            line=line.replace(",","").replace(".","")
-                    .replace(";","").replace(":","")
-                    .replace("'","").replace("\"","")
-                    .replace("-","").replace("!","")
-                    .replace("#","").replace("(","")
-                    .replace(")","").replace("?","")
-                    .replace("_"," ").replace("?","")
-                    .toLowerCase().trim();
-            words = line.split(" ");
-            for (String s:words) {
-                wordFound = map.get(s);
-                if (wordFound == null) {
-                    map.put(s, new Integer(1));
-                }
-                else {
-                    map.put(s, map.get(s) + 1);
-                }
-
-            }
-
-            for (Map.Entry<String, Integer> entry : map.entrySet()) {
-                System.out.println(entry.getKey() + " " + entry.getValue());
-            }
-        }
-    }
-
 }
