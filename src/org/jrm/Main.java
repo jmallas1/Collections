@@ -1,14 +1,18 @@
 package org.jrm;
 
 import org.jrm.io.FileInput;
+import org.jrm.sorting.JComparator;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class Main {
 
     private final static FileInput indata = new FileInput("the_book.csv");
     private final static Map<String, Integer> map = new HashMap<String, Integer>();
+    private final static JComparator jc = new JComparator(map);
+    private final static TreeMap<String, Integer> sortedMap = new TreeMap<String, Integer>(jc);
 
     public static void main(String[] args)
     {
@@ -28,8 +32,17 @@ public class Main {
 
         for (int i=0; i < words.length; i++)
         {
-            System.out.println(words[i]);
+            if(map.containsKey(words[i]))
+            {
+                map.put(words[i], (map.get(words[i]) + 1));
+            }
+            else
+            {
+                map.put(words[i], 1);
+            }
         }
+
+        sortedMap.putAll(map);
 
         System.out.println(theBook);
     }
