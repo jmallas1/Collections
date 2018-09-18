@@ -3,10 +3,16 @@ package org.jrm;
 import org.jrm.io.FileInput;
 import org.jrm.sorting.JComparator;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
+/**
+ * Main class and methods for demonstrating collection sorting and counting.
+ * @author Jared Mallas
+ * @version 1.0
+ */
 public class Main {
 
     private final static FileInput indata = new FileInput("the_book.csv");
@@ -39,21 +45,31 @@ public class Main {
 
         sortedMap.putAll(map);
 
+        int counter = 0;
+        String topOutString = new String();
+        ArrayList<String> oneList = new ArrayList<String>();
+
         for (Map.Entry<String, Integer> entry : sortedMap.entrySet())
         {
-            System.out.println("Key: " + entry.getKey());
-            System.out.println("Value: " + entry.getValue().toString());
-        }
-    }
+            if (counter < 100)
+            {
+                topOutString = topOutString + entry.getKey() + "\t-\t" + entry.getValue().toString() + "\n";
+                counter++;
+            }
 
-    private Map wordsToMap(String[] words)
-    {
-        return new HashMap();
+            if(entry.getValue() == 1)
+            {
+                oneList.add(entry.getKey());
+            }
+        }
+
+        System.out.println("The top 100 most used words and their values:\n" + topOutString);
+        System.out.println("The following " + oneList.size() + " words were only used once: \n" + oneList);
     }
 
     private static String cleanBook(String toClean)
     {
-        toClean.replace(",","").replace(".","")
+        toClean = toClean.replace(",","").replace(".","")
                 .replace(";","").replace(":","")
                 .replace("'","").replace("\"","")
                 .replace("-","").replace("!","")
